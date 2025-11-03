@@ -26,7 +26,7 @@ def redscale_image(image_path):
 
 # takes in the full image as an array with just the red chanel, returns red pixel count from selected areas.
 def red_pixels_in_area(red_channel, image_path, threshold):
-    coords = SelectArea.main(image_path)
+    coords = SelectArea.select_areas(image_path)
     total_sum = 0
 
     # loop through each selected area, adding the number of red pixels above the threshold to the count.
@@ -65,11 +65,14 @@ def percentage_red_pixels(image_path, red_threshold = 30):
 
     return red_percentage, area_red_percentage
 
+def get_relative_red(image_path):
+    whole_red_percentage, selected_red_percentage = percentage_red_pixels(image_path, threshold)
+    output = f'''The image {image_path.split("/")[-1].split("\\")[-1]} is {round(whole_red_percentage, 3)}% red.
+    The selected area makes up {round(selected_red_percentage, 3)}% of the red in the image.'''
 
+    return output
 
 if __name__ == '__main__':
     image_path = input('Please enter the image path: ')
     threshold = int(input('Please enter the red threshold (0-255): '))
-    whole_red_percentage, selected_red_percentage = percentage_red_pixels(image_path, threshold)
-    print(f'The image {image_path.split("/")[-1].split("\\")[-1]} is {round(whole_red_percentage, 3)}% red.')
-    print(f'The selected area makes up {round(selected_red_percentage, 3)}% of the red in the image.')
+    print(get_relative_red(image_path))

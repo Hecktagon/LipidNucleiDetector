@@ -104,7 +104,7 @@ def order_coords(coords):
 Allows the user to select multiple areas, then returns the coordinates 
 for the corners of those areas in a 2D list.
 """
-def main(image_path = None):
+def select_areas(image_path = None):
     root = tk.Tk()
     area_selector = ImageCoordinateSelector(root, image_path)
     root.mainloop()
@@ -114,4 +114,4 @@ def main(image_path = None):
     return coords
 
 if __name__ == "__main__":
-    print(main())
+    print(select_areas())
