@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from ImageStandardizer import standardize_image
-from RelativeRed import percentage_red_pixels
+from RelativeRed import get_relative_red
 from RedCircleFinder import red_circles
 
 
@@ -43,7 +43,7 @@ def get_path():
 
 
 def main():
-    results = None;
+    results = None
 
     while True:
         func = input(
@@ -55,7 +55,7 @@ def main():
 
         elif func == '-p':
             img = get_path()
-            results = run_script(img, percentage_red_pixels)
+            results = run_script(img, get_relative_red)
 
         elif func == '-q':
             break
