@@ -1,4 +1,4 @@
-inputs/*
-!inputs/.gitkeep
+PracticeImages/*
+!PracticeImages/.gitkeep
 .venv/
 .StandardizedImages/
