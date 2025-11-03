@@ -51,7 +51,7 @@ def main():
 
         if func == '-s':
             img = get_path()
-            results = run_script(img, standardize_image)
+            run_script(img, standardize_image)
 
         elif func == '-p':
             img = get_path()

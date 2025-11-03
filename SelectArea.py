@@ -100,6 +100,7 @@ def order_coords(coords):
     if coords[1] > coords[3]:
         coords[1], coords[3] = coords[3], coords[1]
 
+
 """
 Allows the user to select multiple areas, then returns the coordinates 
 for the corners of those areas in a 2D list.
@@ -112,6 +113,7 @@ def select_areas(image_path = None):
     for coord in coords:
         order_coords(coord)
     return coords
+
 
 if __name__ == "__main__":
     print(select_areas())

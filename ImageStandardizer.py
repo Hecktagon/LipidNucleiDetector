@@ -1,3 +1,5 @@
+import os
+
 import cv2
 
 def white_balance(image):
@@ -22,8 +24,12 @@ def standardize_image(image_path):
     # Perform white balance
     balanced_image = white_balance(image)
 
+    # Create output directory if it doesn't exist
+    output_dir = 'StandardizedImages'
+    os.makedirs(output_dir, exist_ok=True)  # Creates the directory if it doesn't exist
+
     # write the image to output
-    cv2.imwrite(f'StadardizedImages/{image_path.split('/')[-1].split('\\')[-1]}_standardized.png', balanced_image)
+    cv2.imwrite(f'StandardizedImages/{image_path.split('/')[-1].split('\\')[-1]}_standardized.png', balanced_image)
 
 
 if __name__ == '__main__':
