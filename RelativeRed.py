@@ -20,7 +20,8 @@ def redscale_image(image_path):
             redscaled_color = (int(r - 0.5 * g - 0.5 * b), 0, 0)
             redscaled_img.putpixel((x, y), redscaled_color)
 
-    # redscaled_img.show() ENABLE THIS TO SEE RED-FILTERED IMAGE
+    #  ENABLE THIS TO SEE RED-FILTERED IMAGE:
+    # redscaled_img.show()
     return redscaled_img
 
 # takes in the full image as an array with just the red chanel, returns red pixel count from selected areas.

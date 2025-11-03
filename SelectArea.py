@@ -59,9 +59,10 @@ class ImageCoordinateSelector:
         # New dimensions for the image
         new_width = int(original_width * self.resize_ratio)
         new_height = int(original_height * self.resize_ratio)
+        size = (new_width, new_height)
 
         # Resize the image
-        resized_image = self.image.resize((new_width, new_height))
+        resized_image = self.image.resize(size)
         self.tk_image = ImageTk.PhotoImage(resized_image)
 
         # Set canvas dimensions to match the resized image
@@ -69,7 +70,7 @@ class ImageCoordinateSelector:
         self.canvas.create_image(0, 0, anchor=tk.NW, image=self.tk_image)
 
     def scale_coords(self, coords):
-        return [round(x * self.resize_ratio) for x in coords]
+        return [round(x/self.resize_ratio) for x in coords]
 
     def on_left_click(self, event):
         self.start_x = event.x
