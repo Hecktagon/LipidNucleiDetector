@@ -22,8 +22,9 @@ def standardize_image(image_path):
     # Perform white balance
     balanced_image = white_balance(image)
 
-    # Optionally, save or display the processed image
+    # write the image to output
     cv2.imwrite(f'StadardizedImages/{image_path.split('/')[-1].split('\\')[-1]}_standardized.png', balanced_image)
+
 
 if __name__ == '__main__':
     img_path = input('Please enter the image path: ')
