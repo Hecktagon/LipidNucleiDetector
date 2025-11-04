@@ -12,26 +12,31 @@ def is_image_file(file_path):
     return file_path.suffix.lower() in image_extensions
 
 
+def run_func_on_image(image_path, func, input):
+    if input:
+        output = func(image_path, input) # Process image
+    else:
+        output = func(image_path)
+    if output:
+        print(output)
+        return output
+    return None
+
+
 # This will run a provided function on either an image or all the images in a directory.
-def run_script(input_path, function):
+def run_script(input_path, function, input = None):
     # Convert input to a Path object for easier handling
     path = Path(input_path)
     outputs = []
 
     # Check if the path is a file and an image
     if path.is_file() and is_image_file(path):
-        output = function(str(path))  # Process the single file\
-        if output:
-            print(output)
-            outputs.append(output)
+        outputs.append(run_func_on_image(str(path), function, input))
     elif path.is_dir():
         # Loop through each file in the directory
         for file in path.iterdir():
             if file.is_file() and is_image_file(file):  # Check if it's a file and an image
-                output = function(str(file))  # Process each image
-                if output:
-                    print(output)
-                    outputs.append(output)
+                outputs.append(run_func_on_image(str(path), function, input))
     else:
         print(f'Error: {input_path} is neither a image nor a directory.')
 
@@ -55,7 +60,8 @@ def main():
 
         elif func == '-p':
             img = get_path()
-            results = run_script(img, get_relative_red)
+            red_threshold = int(input('Please enter the red threshold (0-255): '))
+            results = run_script(img, get_relative_red, red_threshold)
 
         elif func == '-q':
             break

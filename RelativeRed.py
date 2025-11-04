@@ -69,13 +69,13 @@ def percentage_red_pixels(image_path, red_threshold = 30):
 
 def get_relative_red(image_path, threshold = 30):
     whole_red_percentage, selected_red_percentage = percentage_red_pixels(image_path, threshold)
-    output = f'''The image {image_path.split("/")[-1].split("\\")[-1]} is {round(whole_red_percentage, 3)}% red.
-    The selected area makes up {round(selected_red_percentage, 3)}% of the red in the image.'''
+    output = f'''\nThe image {image_path.split("/")[-1].split("\\")[-1]} is {round(whole_red_percentage, 3)}% red.
+The selected area makes up {round(selected_red_percentage, 3)}% of the red in the image.\n'''
 
     return output
 
 
 if __name__ == '__main__':
     path = input('Please enter the image path: ')
-    red_threshold = int(input('Please enter the red threshold (0-255): '))
-    print(get_relative_red(path, red_threshold))
+    threshold = int(input('Please enter the red threshold (0-255): '))
+    print(get_relative_red(path, threshold))

@@ -2,5 +2,6 @@ PracticeImages/*
 !PracticeImages/.gitkeep
 .venv/
 .venv/*
-.StandardizedImages/*
-.StandardizedImages/
+/StandardizedImages/*
+/StandardizedImages/
+
