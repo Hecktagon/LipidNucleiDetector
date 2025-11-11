@@ -9,3 +9,4 @@
 
 ## Notes:  
  - If rectangles overlap, the red values within the overlap will be double counted.
+ - When selecting the red threshold for red detection, 0 means pixels without any red will be counted as red, and 255 means onlt pixels that are entirely the maximum red value with no other colors will be counted as red.
