@@ -1,6 +1,7 @@
+import os
 import tkinter as tk
 from tkinter import filedialog
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageDraw
 
 
 """
@@ -31,12 +32,15 @@ class ImageCoordinateSelector:
         self.canvas.bind("<ButtonRelease-1>", self.on_left_click_release)
         # RIGHT CLICK
         self.canvas.bind("<ButtonPress-3>", self.on_right_click)
+        # CLOSE
+        self.root.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.load_image()
 
     def load_image(self):
         if self.image_path is None:
             file_path = filedialog.askopenfilename()
+            self.image_path = file_path
         else:
             file_path = self.image_path
         if file_path:
@@ -62,8 +66,8 @@ class ImageCoordinateSelector:
         size = (new_width, new_height)
 
         # Resize the image
-        resized_image = self.image.resize(size)
-        self.tk_image = ImageTk.PhotoImage(resized_image)
+        self.image = self.image.resize(size)
+        self.tk_image = ImageTk.PhotoImage(self.image)
 
         # Set canvas dimensions to match the resized image
         self.canvas.config(width=new_width, height=new_height)
@@ -91,6 +95,32 @@ class ImageCoordinateSelector:
         if len(self.all_rectangles) > 0:
             self.canvas.delete(self.all_rectangles.pop())
             self.all_coords.pop()
+
+    def on_close(self):
+        self.save_canvas_as_image()
+        self.root.destroy()
+
+    def save_canvas_as_image(self):
+        output_file = f"SelectedAreaImages\\{self.image_path.split("/")[-1].split("\\")[-1]}_selected_areas.png"
+        output_dir = 'SelectedAreaImages'
+        os.makedirs(output_dir, exist_ok=True)  # Creates selected areas directory if it doesn't exist
+
+        # Create a new image with the same size as canvas, and draw the image on it.
+        canvas_width = self.canvas.winfo_width()
+        canvas_height = self.canvas.winfo_height()
+        image = self.image
+        draw = ImageDraw.Draw(image)
+
+        # Get all the items on the canvas and draw them onto the image
+        for item in self.canvas.find_all():
+            coords = self.canvas.coords(item)
+            if self.canvas.type(item) == "rectangle":
+                draw.rectangle(coords, outline="red")  # Change as needed based on your drawing
+
+        # Save the image
+        image.save(output_file, 'PNG')
+        print(f"Canvas saved as {output_file}")
+
 
 
 # arranges coordinates of rectangle corners so that the first pair is the top left corner

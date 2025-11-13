@@ -2,8 +2,6 @@ import os
 from pathlib import Path
 from ImageStandardizer import standardize_image
 from RelativeRed import get_relative_red
-from RedCircleFinder import red_circles
-
 
 # check is a filepath is for an image
 def is_image_file(file_path):
